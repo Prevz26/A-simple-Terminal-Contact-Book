@@ -6,7 +6,6 @@
 This is a basic command-line application for managing contacts. It allows you to add, view, edit, and delete contacts from a text-based list.
 
 ** Features**
-
 - Store contact names, phone numbers, and email addresses.
 - View an existing contact.
 - List all contacts.
