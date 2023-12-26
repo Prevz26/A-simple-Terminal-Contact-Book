@@ -1,11 +1,11 @@
 
-**# Simple Terminal Contact Book**
+** Simple Terminal Contact Book**
 
-**## Description**
+** Description**
 
 This is a basic command-line application for managing contacts. It allows you to add, view, edit, and delete contacts from a text-based list.
 
-**## Features**
+** Features**
 
 - Store contact names, phone numbers, and email addresses.
 - View an existing contact.
@@ -13,7 +13,7 @@ This is a basic command-line application for managing contacts. It allows you to
 - Update an existing contact.
 - Delete contacts.
 
-**## Usage**
+**Usage**
 
 1. **Open a terminal window.**
 2. **Navigate to the directory containing the contact book application.**
@@ -29,8 +29,8 @@ python main.py
 4. **Follow the on-screen instructions to interact with the contact book.**
 
 
-**## Additional Information**
+** Additional Information**
 
-- The contact book data is stored using the python dictonary Data Structure, soon to be updated to a persistent data storage
+- The contact book data is stored using the python dictionary Data Structure, soon to be updated to a persistent data storage
 - You can customize the application by modifying the source code.
 
