@@ -30,6 +30,6 @@ python main.py
 
 ** Additional Information**
 
-- The contact book data has been updated from using the dictionary data structure, to a json file for a persistent storage
+- The contact book data is stored using the python dictionary Data Structure, soon to be updated to a persistent data storage
 - You can customize the application by modifying the source code.
 
