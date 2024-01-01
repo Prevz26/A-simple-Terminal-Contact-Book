@@ -1,4 +1,5 @@
 import os
+import json 
 
 contacts = {}
 def create_contact():
@@ -12,7 +13,14 @@ def create_contact():
             except ValueError:
                 print("Please enter a valid phone number")
                 continue
-            contacts[name] = {"name": name, 'email': email, 'phone': number}
+            if name in contacts:
+                print("name already exits")
+                continue
+            else:
+                contacts[name] = {"name": name, "email": email, "Phone": number}
+            
+            with open ("contact.json", "w") as file:
+                json.dump(contacts, file, indent=4)
             os.system('cls' if os.name == 'nt' else 'clear')
             print(f"{name}'s contact has been saved")
             break
@@ -21,8 +29,10 @@ def create_contact():
     return contacts
 
 def view_contact():
+    with open ("contact.json", "r") as file:
+            contact = json.load(file)    
     name = input("please enter a name: ").lower()
-    contact = contacts.get(name)
+    contact = contacts.get(name) 
     if contact is not None:
         print(f"name: {contact['name']}")
         print(f"Email: {contact['email']}")
@@ -79,7 +89,8 @@ def delete():
         else:
             print("enter a valid option")
     
-    
+if __name__ == "__main__":
+    print("This file is a function")
 
 
 
