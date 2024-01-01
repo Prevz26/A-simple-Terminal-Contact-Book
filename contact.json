@@ -1,7 +1,17 @@
 {
-    "ojogu": {
-        "name": "ojogu",
-        "Email": "ojoeprevz@gmail.com",
+    "precious": {
+        "Name": "precious",
+        "Email": "ojoe@gmail.com",
         "Phone": 9065011334
+    },
+    "ojogu": {
+        "Name": "ojogu",
+        "Email": "ojogu@gmail.com",
+        "Phone": 12323434343
+    },
+    "prevz": {
+        "Name": "prevz",
+        "Email": "prevz@gmail.com",
+        "Phone": 12345434232
     }
 }

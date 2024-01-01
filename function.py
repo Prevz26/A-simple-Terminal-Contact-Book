@@ -4,55 +4,67 @@ import json
 contacts = {}
 def create_contact():
     while True:
-        name = input("Please enter your name: ").strip().lower()
-        email = input("Please enter your email: ").strip().lower()
+        Name = input("Please enter your name: ").strip().lower()
+        Email = input("Please enter your email: ").strip().lower()
         str_number = input("Please enter your number:").strip()
         if str_number.isdigit() and len(str_number) == 11:
             try:
-                number = int(str_number)
+                Number = int(str_number)
             except ValueError:
                 print("Please enter a valid phone number")
                 continue
-            if name in contacts:
+            if Name in contacts:
                 print("name already exits")
                 continue
             else:
-                contacts[name] = {"name": name, "email": email, "Phone": number}
-            
-            with open ("contact.json", "w") as file:
-                json.dump(contacts, file, indent=4)
+                contacts[Name] = {"Name": Name, "Email": Email, "Phone": Number}
+            try:
+                with open ("contact.json", "w") as file:
+                    json.dump(contacts, file, indent=4)
+            except FileNotFoundError:
+                print("File not found")
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(f"{name}'s contact has been saved")
+            print(f"{Name}'s contact has been saved")
             break
         else:
             print("Invalid number.")
     return contacts
 
 def view_contact():
-    with open ("contact.json", "r") as file:
-            contact = json.load(file)    
+    try:
+        with open ("contact.json", "r") as file:
+            contact = json.load(file)
+    except FileNotFoundError:
+        print("File not found")    
     name = input("please enter a name: ").lower()
     contact = contacts.get(name) 
     if contact is not None:
-        print(f"name: {contact['name']}")
-        print(f"Email: {contact['email']}")
-        print(f"Phone: {contact['phone']}")
+        print(f"name: {contact['Name']}")
+        print(f"Email: {contact['Email']}")
+        print(f"Phone: {contact['Phone']}")
         print("\n")
     else:
         print("contact does not exit")
     
 
 def list_all_contact():
-    if contacts is not None:
-        for _, contact in contacts.items():
-            print(f"{contact['name']}: ")
-            print(f"Name: {contact['name']}")
-            print(f"Email: {contact['email']}")
-            print(f"Phone: {contact['phone']}")
+    try:
+        with open("contact.json", "r") as file:
+            contact = json.load(file)
+    except FileNotFoundError:
+        print("File not found. No Contacts.")
+        return
+
+    if contact:
+        print("Contacts:")
+        for value in contact.values():
+            print(f"Name: {value.get('Name', 'N/A')}")
+            print(f"Email: {value.get('Email', 'N/A')}")
+            print(f"Phone: {value.get('Phone', 'N/A')}")
             print("\n")
     else:
         print("No Contacts")
-    
+
 
 def update_contact():
     name = input("Enter the name of the contact you want to update: ")
