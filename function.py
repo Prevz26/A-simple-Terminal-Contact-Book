@@ -6,7 +6,7 @@ def load_contacts():
         with open("contact.json", "r") as file:
             contacts = json.load(file)
     except (FileNotFoundError, json.decoder.JSONDecodeError):
-        contacts = {}
+        print("Contact Empty.")
     return contacts
 
 def save_contacts(contacts):
@@ -20,7 +20,6 @@ def save_contacts(contacts):
 def create_contact():
     while True:
         contacts = load_contacts()
-        print(contacts)
         Name = input("Please enter your name: ").strip().lower()
         Email = input("Please enter your email: ").strip().lower()
         str_number = input("Please enter your number:").strip()
@@ -35,13 +34,7 @@ def create_contact():
                 continue
             else:
                 contacts[Name] = {"Name": Name, "Email": Email, "Phone": Number}
-                save_contacts(contacts)
-                
-            # try:
-            #     with open ("contact.json", "w") as file:
-            #         json.dump(contacts, file, indent=4)
-            # except FileNotFoundError:
-            #     print("File not found")
+                save_contacts(contacts)                
             os.system('cls' if os.name == 'nt' else 'clear')
             print(f"{Name}'s contact has been saved")
             break
@@ -51,6 +44,7 @@ def create_contact():
 
 def view_contact(contacts):
     contact = load_contacts()
+
     name = input("please enter a name: ").lower()
     contact = contacts.get(name) 
     if contact is not None:
@@ -63,13 +57,7 @@ def view_contact(contacts):
     
 
 def list_all_contact():
-    try:
-        with open("contact.json", "r") as file:
-            contact = json.load(file)
-    except FileNotFoundError:
-        print("File not found. No Contacts.")
-        return
-
+    contact = load_contacts()
     if contact:
         print("Contacts:")
         for value in contact.values():
@@ -82,27 +70,33 @@ def list_all_contact():
 
 
 def update_contact(contacts):
-    name = input("Enter the name of the contact you want to update: ")
-    if name in contacts:
+    contacts = load_contacts()
+    old_name = input("Enter the name of the contact you want to update: ")
+    if old_name in contacts:
         user_input = input("Choose what you want to update: ")
+        new_name = old_name 
         if user_input == "name":
             new_name = input("enter new name: ")
-            contacts[name]["name"] = [new_name]
+            contacts[new_name] = contacts.pop(old_name)
+            contacts[new_name]["Name"] = new_name
             print("Name has been updated")
+            save_contacts(contacts)
 
         elif user_input == "email":
             new_email = input("enter new email: ")
-            contacts[name]["email"] = [new_email]
+            contacts[new_name]["Email"] = new_email
             print("Email has been updated ")
+            save_contacts(contacts)
 
         elif user_input == "phone":
             new_phone = input("enter new number: ")
-            contacts[name]["phone"] = [new_phone]
+            contacts[new_name]["Phone"] = new_phone
             print("phone has been updated")
+            save_contacts(contacts)
     else:
         print("contact does not exist")
     
-    
+
 
 def delete(contacts):
     name = input("Enter the name of the contact you wish to delete: ")
