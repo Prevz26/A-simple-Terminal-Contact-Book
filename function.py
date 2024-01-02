@@ -59,7 +59,6 @@ def view_contact(contacts):
 def list_all_contact():
     contact = load_contacts()
     if contact:
-        print("Contacts:")
         for value in contact.values():
             print(f"Name: {value.get('Name', 'N/A')}")
             print(f"Email: {value.get('Email', 'N/A')}")
@@ -73,7 +72,7 @@ def update_contact(contacts):
     contacts = load_contacts()
     old_name = input("Enter the name of the contact you want to update: ")
     if old_name in contacts:
-        user_input = input("Choose what you want to update: ")
+        user_input = input("Choose what you want to update(name/email/phone): ")
         new_name = old_name 
         if user_input == "name":
             new_name = input("enter new name: ")
@@ -99,12 +98,14 @@ def update_contact(contacts):
 
 
 def delete(contacts):
+    contacts = load_contacts()
     name = input("Enter the name of the contact you wish to delete: ")
     if name in contacts:
         user_input = input(f"Are you sure you want to delete {name} contact details (y/n) ")
         if user_input == "y":
             del contacts[name]
             print(f"{name} contact has successfully been deleted")
+            save_contacts(contacts)
         elif user_input == "n":
             exit()
         else:

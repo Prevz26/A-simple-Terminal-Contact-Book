@@ -12,7 +12,7 @@ def main():
         print("5. Delete an existing contact\n")
         print("6. Exit\n")
         
-        choice = input("Enter your choice: ")
+        choice = input( "Enter your choice: ")
         os.system('cls' if os.name == 'nt' else 'clear')
         if choice.isdigit():
             choice = int(choice)
@@ -27,7 +27,7 @@ def main():
             elif choice == 5:
                 function.delete(contacts)
             elif choice == 6:
-                exit()
+                break
         else:
             print("Enter a valid choice")
             
