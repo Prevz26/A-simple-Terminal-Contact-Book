@@ -4,6 +4,7 @@ def main():
     print("WELCOME TO CONTACT BOOK\n")
 
     while True:
+        contacts = function.load_contacts()
         print("1. Create a new contact\n")
         print("2. View an existing contact\n")
         print("3. List all existing contacts\n")
@@ -18,13 +19,13 @@ def main():
             if choice == 1:
                 function.create_contact()
             elif choice == 2:
-                function.view_contact()
+                function.view_contact(contacts)
             elif choice == 3:
                 function.list_all_contact()
             elif choice == 4:
-                function.update_contact()
+                function.update_contact(contacts)
             elif choice == 5:
-                function.delete()
+                function.delete(contacts)
             elif choice == 6:
                 exit()
         else:

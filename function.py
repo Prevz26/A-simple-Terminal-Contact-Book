@@ -1,14 +1,31 @@
 import os
 import json 
 
-contacts = {}
+def load_contacts():
+    try:
+        with open("contact.json", "r") as file:
+            contacts = json.load(file)
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        contacts = {}
+    return contacts
+
+def save_contacts(contacts):
+    try:
+        with open("contact.json", "w") as file:
+            json.dump(contacts, file, indent=4)
+    except (FileNotFoundError):
+        print("File not found")
+
+
 def create_contact():
     while True:
+        contacts = load_contacts()
+        print(contacts)
         Name = input("Please enter your name: ").strip().lower()
         Email = input("Please enter your email: ").strip().lower()
         str_number = input("Please enter your number:").strip()
         if str_number.isdigit() and len(str_number) == 11:
-            try:
+            try: 
                 Number = int(str_number)
             except ValueError:
                 print("Please enter a valid phone number")
@@ -18,11 +35,13 @@ def create_contact():
                 continue
             else:
                 contacts[Name] = {"Name": Name, "Email": Email, "Phone": Number}
-            try:
-                with open ("contact.json", "w") as file:
-                    json.dump(contacts, file, indent=4)
-            except FileNotFoundError:
-                print("File not found")
+                save_contacts(contacts)
+                
+            # try:
+            #     with open ("contact.json", "w") as file:
+            #         json.dump(contacts, file, indent=4)
+            # except FileNotFoundError:
+            #     print("File not found")
             os.system('cls' if os.name == 'nt' else 'clear')
             print(f"{Name}'s contact has been saved")
             break
@@ -30,12 +49,8 @@ def create_contact():
             print("Invalid number.")
     return contacts
 
-def view_contact():
-    try:
-        with open ("contact.json", "r") as file:
-            contact = json.load(file)
-    except FileNotFoundError:
-        print("File not found")    
+def view_contact(contacts):
+    contact = load_contacts()
     name = input("please enter a name: ").lower()
     contact = contacts.get(name) 
     if contact is not None:
@@ -66,7 +81,7 @@ def list_all_contact():
         print("No Contacts")
 
 
-def update_contact():
+def update_contact(contacts):
     name = input("Enter the name of the contact you want to update: ")
     if name in contacts:
         user_input = input("Choose what you want to update: ")
@@ -89,7 +104,7 @@ def update_contact():
     
     
 
-def delete():
+def delete(contacts):
     name = input("Enter the name of the contact you wish to delete: ")
     if name in contacts:
         user_input = input(f"Are you sure you want to delete {name} contact details (y/n) ")
